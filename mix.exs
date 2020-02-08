@@ -9,7 +9,15 @@ defmodule Issues.MixProject do
       name: "Issues",
       source_url: "https://github.com/Soimil/issues",
       elixir: "~> 1.9",
+      build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ],
       deps: deps()
     ]
   end
@@ -24,10 +32,11 @@ defmodule Issues.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      { :httpoison, "~> 1.6" },
-      { :poison, "~> 4.0" },
-      { :ex_doc, "~> 0.21.3" },
-      { :earmark, "~> 1.4" },
+      {:httpoison, "~> 1.6"},
+      {:poison, "~> 4.0"},
+      {:ex_doc, "~> 0.21.3"},
+      {:earmark, "~> 1.4", override: true},
+      {:excoveralls, "~> 0.12.2", only: :test}
     ]
   end
 
